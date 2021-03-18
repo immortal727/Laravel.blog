@@ -1,0 +1,62 @@
+/*Смартфоны (портрет и ландшафтный)*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
+    h1{font-size: 2rem}
+    .logo-t ext-line:first-child {
+        height: 2.5em;
+    }
+    .tel{font-size: 1.5em}
+    .uk-card-block h3{font-size: 1em}
+}
+
+@media only screen and (max-device-width : 640px){
+    .uk-grid{margin-right: 0;}
+    .change_color{font-size: 1em}
+}
+
+@media only screen and (min-device-width : 480px) and (max-device-width : 640px){
+    .uk-card-block h3{font-size: 1.2em}
+}
+
+@media only screen and (min-device-width : 640px) and (max-device-width : 820px){
+    .tel{font-size: 1.5em}
+}
+
+@media only screen and (min-width: 992px) {
+    .cont {
+        max-width: 960px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cont {
+        max-width: 1200px;
+    }
+}
+@media only screen and (min-width: 640px) and (max-width: 1200px) {
+    .uk-card-block h3{font-size: 1em}
+}
+
+
+/*Смартфоны (ландшатный)*/
+@media only screen and (min-width : 321px){}
+
+/*Смартфоны (portrite)*/
+@media only screen and (max-width : 320px){}
+
+/*IPads (портрет и ландшафтный)*/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px){}
+
+/*IPads (ладшафтный)*/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {}
+
+/*IPads (Портрет)*/
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait){}
+
+/*Настольные компьютеры и ноутбуки*/
+@media only screen and (min-width : 1224px) {}
+
+/*Большие экраны*/
+@media only screen and (min-width : 1824px) {}
+
+/*Iphone4*/
+@media only screen and (-webkit-min-device-pixel-ratio : 1.5),only screen and (min-device-pixel-ratio : 1.5) {}

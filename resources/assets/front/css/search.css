@@ -1,0 +1,72 @@
+.ais-search-box {
+    max-width: 98%;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+[class^=ais-], [class^=ais-]>*, [class^=ais-]>::after, [class^=ais-]>::before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+#modal-full .uk-modal-dialog .uk-modal-close{
+    right: 25px;
+    left: inherit;
+    top: 15px;
+    position: absolute;
+}
+.ais-search-box {
+    display: inline-block;
+    position: relative;
+    height: 46px;
+    white-space: nowrap;
+    font-size: 14px;
+}
+.ais-search-box {
+    position: relative;
+    max-width: 98%;
+    width: 100%;
+}
+
+.ais-search-box--input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font: inherit;
+    background: #fff;
+    color:#7D7D7D;
+    display: inline-block;
+    border: 1px solid #d4d8e3;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(85,95,110,.2);
+    box-shadow: 0 1px 1px 0 rgba(85,95,110,.2);
+    -webkit-transition: background .4s ease,-webkit-box-shadow .4s ease;
+    transition: box-shadow .4s ease,background .4s ease;
+    transition: box-shadow .4s ease,background .4s ease,-webkit-box-shadow .4s ease;
+    padding: 10px 10px 10px 35px;
+    vertical-align: middle;
+    white-space: normal;
+}
+.ais-search-box--input {
+    padding-left: 30x;
+    height: 100%;
+    width: 100%;
+    font-family: 'Roboto';
+}
+
+.ais-search-box--loading-indicator-wrapper, .ais-search-box--magnifier {
+    fill: #bfc7d8;
+    left: 12px;
+    top: calc(50% - 18px/2);
+}
+.ais-search-box--loading-indicator-wrapper, .ais-search-box--magnifier, .ais-search-box--reset {
+    background: 0 0;
+    position: absolute;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ais-search-box--loading-indicator-wrapper svg, .ais-search-box--magnifier svg {
+    height: 18px;
+    width: 18px;
+}
