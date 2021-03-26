@@ -139,7 +139,6 @@ class PostController extends Controller
         $data= $request->all();
         $post = Post::find($id);
         $post->live = $data['show'];
-        //dd($post->view);
         $post->save();
 
         return response()->json([

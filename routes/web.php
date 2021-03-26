@@ -11,13 +11,16 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\ImagesForAlbum;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Frontend\ContactController;
 
-Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('article/{slug}', [HomeController::class, 'show'])->name('home.single');
-    Route::get('category/{slug}', [App\Http\Controllers\Frontend\CategoryController::class, 'show'])->name('categories.single');
-    Route::get('tag/{slug}', [\App\Http\Controllers\Frontend\TagController::class, 'show'])->name('tags.single');
+Route::group(['middleware' => 'guest'], function (){
+    Route::get('register', [UserController::class, 'create'])->name('register.create');
+    Route::post('register', [UserController::class, 'store'])->name('register.store');
+    Route::get('login', [UserController::class, 'loginForm'])->name('login.create');
+    Route::post('login', [UserController::class, 'login'])->name('login');
 });
+
+Route::get('logout', [UserController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
     Route::get('/', [MainController::class, 'index'])->name('admin.index');
@@ -45,11 +48,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
     Route::resource('/posts', PostController::class);
 });
 
-Route::group(['middleware' => 'guest'], function (){
-    Route::get('register', [UserController::class, 'create'])->name('register.create');
-    Route::post('register', [UserController::class, 'store'])->name('register.store');
-    Route::get('login', [UserController::class, 'loginForm'])->name('login.create');
-    Route::post('login', [UserController::class, 'login'])->name('login');
+Route::group(['namespace' => 'App\Http\Controllers\Frontend'], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::post('/sendmail', [ContactController::class,'send'])->name('sendmail');
+    Route::get('{slug}', [HomeController::class, 'show'])->name('home.show');
+    Route::get('{cat}/{slug?}', [HomeController::class, 'category'])->name('home.category');
+    Route::get('tag/{slug}', [\App\Http\Controllers\Frontend\TagController::class, 'show'])->name('tags.single');
 });
 
-Route::get('logout', [UserController::class, 'logout'])->name('logout')->middleware('auth');
+

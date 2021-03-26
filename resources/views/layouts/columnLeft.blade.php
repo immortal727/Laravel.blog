@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
     <link href="{{ asset('assets/front/css/uikit.min.css') }}" type="text/css" rel="stylesheet">
@@ -42,7 +43,7 @@
             <nav id="nav" class="uk-navbar uk-background-muted uk-border-rounded" uk-navbar>
                 <div class="uk-navbar-left uk-visible@s">
                     <ul class="uk-navbar-nav">
-                        @include('layouts._menu')
+                        @include('layouts._menu-nav')
                     </ul>
                 </div>
                 <div class="uk-navbar-left uk-hidden@s">
@@ -118,7 +119,7 @@
                         @foreach($cats as $cat)
                                 <li>
                                     <div>
-                                        <a href="{{ route('categories.single', ['slug' =>  $cat->slug]) }}">
+                                        <a href="{{ route('home.category', ['cat' => $cat->slug]) }}">
                                             <span>{{ $cat->title }}</span>
                                             <span class="wr-line-dotted"></span>
                                             <span><i class="fa fa-eye"></i> {{ $cat->posts_count }}</span>
@@ -127,43 +128,17 @@
                                 </li>
                         @endforeach
                         </ul>
-                        {{--<ul class="list-section list">
-                            @foreach($popular_posts as $post)
-                                <li>
-                                    <div>
-                                        <a href="{{ route('home.single', ['slug' =>  $post->slug]) }}">
-                                           <img src="{{ $post->getImage() }}" class="img_fluid float-lef" />
-                                            <span>{{ $post->title }}</span>
-                                            <span class="wr-line-dotted"></span>
-                                            <span><i class="fa fa-eye"></i> {{ $post->view }}</span>
-                                            <span>{{ $post->getPostDate() }}</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            @endforeach--}}
-
-                        {{--<li>
-                             <ul class="list-paragraph list">
-                                <li>
-                                    <div>
-                                        <a href="#">
-                                            <span>Параграф 1</span>
-                                            <span class="wr-line-dotted"></span>
-                                            <span>cтр. 257</span>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>--}}
                     </div>
                 </div>
-                <div class="uk-width-expand"> @yield('content')</div>
+                <div class="uk-width-expand">
+                    @yield('content')
+                    <!-- Условие Если страница не главная -->
+                        @if(!Request::is('/'))
+                            @yield('gallery')
+                        @endif
+                </div>
             </div>
-            <!-- Условие Если страница не главная -->
-            @if(!Request::is('/'))
-                @yield('gallery')
-            @endif
+
         </article>
     </section>
     <footer>
@@ -177,8 +152,5 @@
         <a href="" id="up"><span></span></a>
     </div>
     <script src="{{ asset('assets/front/js/front.js') }}"></script>
-    <script>
-
-    </script>
 </body>
 </html>

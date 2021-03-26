@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Menu\StoreCreate;
 use App\Http\Requests\Menu\StoreShow;
+use App\Http\Requests\Menu\StoreUpdate;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -50,13 +51,13 @@ class MenuController extends Controller
         switch ($data['type']) {
             case 'page_link':
                 $post = Post::where('id', $data['post_id'])->first('slug');
-                $data['url'] = 'article/' . $post['slug'];
+                $data['url'] = $post['slug'];
                 $data['category_id'] = 0;
                 break;
             case 'category_link':
                 $category = Category::where('id', $data['category_id'])->first('slug');
                 //  dd($category['slug']);
-                $data['url'] = 'category/' . $category['slug'];
+                $data['url'] = $category['slug'];
                 $data['post_id'] = 0;
                 break;
             case 'external_link':
@@ -114,22 +115,38 @@ class MenuController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdate $request, $id)
     {
+        $data = $request->all();
         $menu_item = Menu::find($id);
         switch ($data['type']) {
             case('page_link'):
                 $data['category_id'] = 0;
-                $post = Post::where('id', $data['post_id'])->first('slug');
-                $data['url'] = 'article/' . $post['slug'];
+                if($data['parent_id']){
+                    $parent_item = Menu::where('category_id', $data['parent_id'])->first('url');
+                    $post = Post::where('id', $data['post_id'])->first('slug');
+                    $data['url'] = $parent_item->url.'/'.$post->slug;
+                }else{
+                    $post = Post::where('id', $data['post_id'])->first('slug');
+                    $data['url'] = $post['slug'];
+                }
+
                 break;
             case('category_link'):
                 $data['post_id'] = 0;
-                $category = Category::where('id', $data['category_id'])->first('slug');
-                $data['url'] = 'category/' . $category['slug'];
+                //$category = Category::where('id', $data['category_id'])->first('slug');
+                $category = Category::find($data['category_id']);
+                $data['url'] = $category->slug.'/'.$menu_item::MakeUrlCode($data['name']);
+                /*if($category->parent_id!=0){
+                    // Производим транслитерацию $category->name
+                    $data['url'] = $menu_item::MakeUrlCode($data['name']);
+                }else{
+                    $data['url'] =$category->slug;
+                }*/
                 break;
         }
 
+        $data['home'] = (empty($data['home'])) ? '0' : $data['home'];
         // Проверяем, есть ли уже поле home со значением 1
         if (Menu::val_home() == $data['home']) {
             $item = Menu::where('home', 1); // получаем его id

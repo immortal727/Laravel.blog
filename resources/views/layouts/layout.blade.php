@@ -15,6 +15,7 @@
 
     <script src="{{ asset('assets/front/js/uikit.min.js') }}"></script>
     <script src="{{ asset('assets/front/js/uikit-icons.min.js') }}"></script>
+    @yield('style')
 </head>
 <body>
 <article class="gradient cont" >
@@ -42,51 +43,37 @@
             <nav id="nav" class="uk-navbar uk-background-muted uk-border-rounded" uk-navbar>
                 <div class="uk-navbar-left uk-visible@s">
                     <ul class="uk-navbar-nav">
-                       {{-- @include('layouts._menu')--}}
                         @include('layouts._menu-nav')
                     </ul>
                 </div>
-                <div class="uk-navbar-left uk-hidden@s">
-                    <ul class="uk-navbar-nav">
-                        <li>
-                            <a href="#" uk-icon="icon: menu" class="uk-icon"></a>
-                            <div class="uk-navbar-dropdown uk-border-rounded uk-background-muted">
-                                <ul class="uk-nav uk-navbar-dropdown-nav uk-text-right" uk-scrollspy="target: > li; cls:uk-animation-slide-right; delay: 300; repeat: true">
-                                    @include('layouts._menu')
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
                 <div class="uk-navbar-right">
-                    <div class="uk-navbar-item">
-                        <a class="uk-icon-button" uk-icon="icon: search" href="#modal-full" uk-toggle></a>
-                        <div id="modal-full" class="uk-modal-full" uk-modal>
-                            <div class="uk-modal-dialog">
-                                <button class="uk-modal-close" type="button" uk-icon="icon: close" ></button>
-                                <div class="uk-modal-header">
-                                    <div id="search-searchbar">
-                                        <div class="ais-search-box">
-                                            <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Поиск..." role="textbox" spellcheck="false" type="text" value="" class="ais-search-box--input">
-                                            <span class="ais-search-box--magnifier-wrapper">
-                                                <div class="ais-search-box--magnifier">
-                                                    <span uk-icon="icon: search"></span>
-                                                </div>
-                                            </span>
-                                        </div>
+                <div class="uk-navbar-item">
+                    <a class="uk-icon-button" uk-icon="icon: search" href="#modal-full" uk-toggle></a>
+                    <div id="modal-full" class="uk-modal-full" uk-modal>
+                        <div class="uk-modal-dialog">
+                            <button class="uk-modal-close" type="button" uk-icon="icon: close" ></button>
+                            <div class="uk-modal-header">
+                                <div id="search-searchbar">
+                                    <div class="ais-search-box">
+                                        <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Поиск..." role="textbox" spellcheck="false" type="text" value="" class="ais-search-box--input">
+                                        <span class="ais-search-box--magnifier-wrapper">
+                                            <div class="ais-search-box--magnifier">
+                                                <span uk-icon="icon: search"></span>
+                                            </div>
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="uk-modal-body">
+                            </div>
+                            <div class="uk-modal-body">
 
-                                </div>
                             </div>
                         </div>
-                        <div class="uk-hidden@s">
-
-                        </div>
                     </div>
+                    <div class="uk-hidden@s">
 
+                    </div>
                 </div>
+            </div>
             </nav>
         </div>
         @if(count($sliders)>0)
@@ -96,8 +83,6 @@
 
     <section>
         <article class="uk-article uk-container">
-
-            @yield('menu')
 
             @yield('content')
 
@@ -113,13 +98,10 @@
         </div>
     </footer>
 
-</div>
+</article>
 <div id="go-top">
     <a href="" id="up"><span></span></a>
 </div>
 <script src="{{ asset('assets/front/js/front.js') }}"></script>
-    <script>
-
-    </script>
 </body>
 </html>

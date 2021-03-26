@@ -29,7 +29,7 @@ class StorePost extends FormRequest
     {
         $rules = [
             'name' => 'required',
-            'quote' => 'required',
+            /*'quote' => 'required',*/
             'title' => 'required',
             'content' => 'required',
             'category_id' => 'required|integer',

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Menu;
 use App\Models\Post;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Cache;
@@ -38,8 +39,9 @@ class AppServiceProvider extends ServiceProvider
                 $cats = Category::withCount('posts')->orderBy('posts_count', 'desc')->get();
                 Cache::put('cats', $cats, 30);
             }
-
-            $view->with('popular_posts', Post::orderBy('view', 'desc')->limit(3)->get());
+            $home = Menu::where('home', 1)->firstOrFail(); // получаем элемент меню у которого home = 1
+            $popular_posts = Post::where('id', '<>', $home->post_id)->orderBy('view', 'desc')->limit(3)->get();
+            $view->with('popular_posts', $popular_posts);
             $view->with('cats', $cats);
         });
         DB::listen(function($query){
@@ -50,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
     public function menuLoad(){
         // С помощью composer передаем в макет
         View::composer(['layouts.layout', 'layouts.columnLeft' ], function ($view){
+            $view->with('items', Menu::with('children')->where('parent_id', 0)->get());
             $view->with('categories', Category::with('children')->where('parent_id', 0)->get());
             $view->with('sliders', Slider::orderBy('weight', 'desc')->where('active', 1)->get());
         });

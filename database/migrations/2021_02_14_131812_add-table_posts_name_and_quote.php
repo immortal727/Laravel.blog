@@ -15,7 +15,7 @@ class AddTablePostsNameAndQuote extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->string('name')->after('id');
-            $table->text('quote')->after('description');
+            $table->text('quote')->nullable()->after('description');
             $table->string('title')->after('name')->change();
             $table->text('description')->nullable()->after('title')->change();
             $table->string('slug')->after('name')->change();

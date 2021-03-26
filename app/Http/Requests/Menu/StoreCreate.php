@@ -23,13 +23,34 @@ class StoreCreate extends FormRequest
      */
     public function rules()
     {
+        /*$menu = [
+            'type' => 'page_link',
+            'post' => 'page_link',
+            'category' => 'category_link',
+            'link' => 'external_link',
+        ];*/
         return [
+           /* $menu,
+            [
+                'type' => 'required|string',
+                'post_id' => 'required_if:type,post',
+                'category_id' => 'required_if:type,category',
+                'external_link' => 'required_if:type,link',
+            ],*/
+            'type' => 'required|string',
+            'post_id' => 'required_if:type,post',
+            'category_id' => 'required_if:type,category',
+            'external_link' => 'required_if:type,link',
             'name' => 'required',
-            'type' => 'required',
             'home' => 'in:1,0',
-            'post_id' => 'required_without:post_id, category_id, external_link',
-            'category_id' => 'required_without:post_id, category_id, external_link',
-            'external_link' => 'required_without:post_id, category_id, external_link',
         ];
     }
 }
+
+/*   'post_id' => 'required_if:type,page_link',
+            'category_id' => 'required_if:type,category_link',
+            'external_link' => 'required_if:type,external_link',*/
+
+/* 'post_id' => 'required_with:category_id,external_link | string',
+ 'category_id' => 'required_with:post_id,external_link | string',
+ 'external_link' => 'required_with:post_id,category_id | string',*/

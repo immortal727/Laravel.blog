@@ -5,7 +5,7 @@
 @section('content')
     <ul class="uk-breadcrumb" style="display: inline-flex">
         <li><a href="{{ route('home') }}">Главная</a></li>
-        <li><a href="{{ route('categories.single', ['slug' => $post->category->slug]) }}">{{ $post->category->title }}</a></li>
+        {{--<li><a href="{{ route('categories.single', ['slug' => $post->category->slug]) }}">{{ $post->category->title }}</a></li>--}}
         <li>{{ $post->name }}</li>
     </ul>
     <div class="uk-flex uk-article-meta">
@@ -18,7 +18,11 @@
     </div>
 
     <h1 class="uk-article-title uk-margin-remove">{{ $post->name }}</h1>
-     {!! htmlspecialchars_decode($post->content) !!}
+    {!! htmlspecialchars_decode($post->content) !!}
+
+    @if($post->slug == 'kontakty')
+        @include('home.contact_form')
+    @endif
 
     @if($post->tags->count())
         <div class="tag-cloud-single">

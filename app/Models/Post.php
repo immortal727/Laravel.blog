@@ -44,6 +44,7 @@ class Post extends Model
         return $this->belongsToMany(Album::class);
     }
 
+
     public function sluggable()
     {
         return [
